@@ -9,6 +9,12 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache client dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          # Using hashFiles() with the lock file as the file name ensures that anytime it changes, the cache is updated
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
       - name: Lint code
@@ -23,6 +29,12 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache client dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          # Using hashFiles() with the lock file as the file name ensures that anytime it changes, the cache is updated
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
       - name: Build website
